@@ -1,0 +1,45 @@
+{% set name = "cuid" %}
+{% set version = "0.4" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 74eaba154916a2240405c3631acee708c263ef8fa05a86820b87d0f59f84e978
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - pip
+    - python
+    - wheel
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - cuid
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/necaris/cuid.py
+  summary: Fast, scalable unique ID generation
+  license: BSD-2-Clause
+  license_family: BSD
+  license_file: LICENSE
+  description: A cuid is a portable and sequentially-ordered unique identifier designed for horizontal scalability and speed -- this version is ported from the reference implementation in Javascript.
+  doc_url: https://github.com/necaris/cuid.py/blob/main/README.md
+  dev_url: https://github.com/necaris/cuid.py
+
+extra:
+  recipe-maintainers:
+    - timkpaine
